@@ -133,4 +133,5 @@ export default function AdminLoginPage() {
     <Suspense fallback={<Loader2 className="h-8 w-8 animate-spin" />}>
       <AdminLogin />
     </Suspense>
+  );
 }
