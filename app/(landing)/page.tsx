@@ -527,7 +527,7 @@ export default async function Home() {
       <Hero />
       <Features />
       <Offerings />
-      <SuccessStories />
+      {/* <SuccessStories /> */}
       <Blog initialBlogs={initialBlogs} />
       <Testimonials initialTestimonials={testimonials} />
       <CallToAction />

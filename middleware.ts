@@ -6,15 +6,15 @@ export function middleware(request: NextRequest) {
   const isAdminRoute = request.nextUrl.pathname.startsWith("/admin");
   const isLoginRoute = request.nextUrl.pathname === "/admin/login";
 
-  // if (isAdminRoute && !isLoginRoute && !token) {
-  //   const callbackUrl = request.nextUrl.pathname + request.nextUrl.search;
-  //   return NextResponse.redirect(
-  //     new URL(
-  //       `/admin/login?callbackUrl=${encodeURIComponent(callbackUrl)}`,
-  //       request.url
-  //     )
-  //   );
-  // }
+  if (isAdminRoute && !isLoginRoute && !token) {
+    const callbackUrl = request.nextUrl.pathname + request.nextUrl.search;
+    return NextResponse.redirect(
+      new URL(
+        `/admin/login?callbackUrl=${encodeURIComponent(callbackUrl)}`,
+        request.url
+      )
+    );
+  }
 
   if (isLoginRoute && token) {
     const callbackUrl = request.nextUrl.searchParams.get("callbackUrl");
