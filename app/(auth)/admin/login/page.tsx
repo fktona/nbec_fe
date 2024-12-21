@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -129,5 +129,8 @@ function AdminLogin() {
 }
 
 export default function AdminLoginPage() {
-  return <AdminLogin />;
+  return (
+    <Suspense fallback={<Loader2 className="h-8 w-8 animate-spin" />}>
+      <AdminLogin />
+    </Suspense>
 }
