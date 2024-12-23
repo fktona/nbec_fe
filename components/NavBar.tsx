@@ -182,9 +182,9 @@ export function NavBar() {
         </Sheet>
         <div className="md:flex hidden  items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
-            <Button className="w-full md:w-auto" asChild>
+            {/* <Button className="w-full md:w-auto" asChild>
               <Link href="/student/login">Student Login</Link>
-            </Button>
+            </Button> */}
           </div>
           <Button variant="outline" className="w-full md:w-auto" asChild>
             <Link href="/registration">Register</Link>
