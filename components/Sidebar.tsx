@@ -17,49 +17,49 @@ const Sidebar = () => {
 
   const navItems = [
     {
-      href: "/admin",
+      href: "/",
       label: "Dashboard",
       icon: <Home className="h-5 w-5" />,
       enabled: true,
     },
     {
-      href: "/admin/students",
+      href: "/students",
       label: "Students",
       icon: <Users className="h-5 w-5" />,
       enabled: true,
     },
     {
-      href: "/admin/blog",
+      href: "/blog",
       label: "Blog",
       icon: <FileText className="h-5 w-5" />,
       enabled: true,
     },
     {
-      href: "/admin/testimonials",
+      href: "/testimonials",
       label: "Testimonials",
       icon: <MessageSquare className="h-5 w-5" />,
       enabled: true,
     },
     {
-      href: "/admin/calendar",
+      href: "/calendar",
       label: "Calendar (Add Soon)",
       icon: <Calendar className="h-5 w-5" />,
       enabled: false,
     },
     {
-      href: "/admin/courses",
+      href: "/courses",
       label: "Courses (Add Soon)",
       icon: <BookOpen className="h-5 w-5" />,
       enabled: false,
     },
     {
-      href: "/admin/settings",
+      href: "/settings",
       label: "Settings (Add Soon)",
       icon: <Settings className="h-5 w-5" />,
       enabled: false,
     },
     {
-      href: "/admin/logout",
+      href: "/logout",
       label: "Logout (Add Soon)",
       icon: <LogOut className="h-5 w-5" />,
       enabled: false,

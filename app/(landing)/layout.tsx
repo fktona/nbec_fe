@@ -19,7 +19,6 @@ export default function RootLayout({
   return (
     <section className={inter.className}>
       <NavBar />
-
       <main className="relative ">{children}</main>
       <Footer />
     </section>

@@ -20,8 +20,8 @@ export function TestimonialCard({
   picture,
 }: Testimonial) {
   return (
-    <Card className="relative">
-      <CardContent className="pt-6">
+    <Card className="relative w-[300px] h-[230px]">
+      <CardContent className="pt-8 flex flex-col  justify-between h-full">
         <div className="absolute -top-6 left-6">
           <Avatar className="h-12 w-12 border-4 border-white">
             <AvatarImage src={picture} alt={firstName} />
@@ -33,11 +33,15 @@ export function TestimonialCard({
             <Star key={i} className="h-4 w-4 fill-primary text-primary" />
           ))}
         </div>
-        <blockquote className="mb-4 text-gray-600">{content}</blockquote>
-        <footer>
-          <div className="font-semibold">{`${firstName} ${lastName}`}</div>
-          <div className="text-sm text-muted-foreground">{role}</div>
-        </footer>
+        <blockquote className="mb-4 text-gray-600 text-sm line-clamp-4">
+          {content}
+        </blockquote>
+        <div className="relateive">
+          <footer>
+            <div className="font-semibold">{`${firstName} ${lastName}`}</div>
+            <div className="text-sm text-muted-foreground">{role}</div>
+          </footer>
+        </div>
       </CardContent>
     </Card>
   );

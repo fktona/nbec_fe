@@ -16,7 +16,7 @@ export function CallToAction() {
           </p>
           <div className="mt-8">
             <Button size="lg" variant="secondary" asChild>
-              <Link href="/contact">Enroll Now</Link>
+              <Link href="/registration">Enroll Now</Link>
             </Button>
           </div>
         </div>

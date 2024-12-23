@@ -1,8 +1,12 @@
 "use client";
-import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
+
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SectionHeading } from "@/components/section-heading";
 import { BookOpen, GraduationCap, Users, Clock } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const features = [
   {
@@ -15,11 +19,6 @@ const features = [
     title: "UTME Preparation",
     description: "Comprehensive preparation for your UTME exams",
   },
-  // {
-  //   icon: Users,
-  //   title: "Small Class Sizes",
-  //   description: "Personal attention and interactive learning environment",
-  // },
   {
     icon: Clock,
     title: "Flexible Schedule",
@@ -28,42 +27,81 @@ const features = [
 ];
 
 export function Features() {
-  const fadeIn = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
-  };
+  const sectionRef = useRef(null);
+  const itemsRef = useRef([]);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const items = itemsRef.current;
+
+    gsap.fromTo(
+      section,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+
+    items.forEach((item, index) => {
+      gsap.fromTo(
+        item,
+        { opacity: 0, x: index % 2 === 0 ? -50 : 50 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          delay: index * 0.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 90%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
 
   return (
-    <section className="py-20 md:py-32 bg-gray-50">
+    <section
+      ref={sectionRef}
+      className="py-20 md:py-32 bg-gradient-to-tl from-primary/5 to-secondary/5"
+    >
       <div className="container px-4 md:px-6">
         <SectionHeading
           title="Why Choose Us"
           subtitle="Discover what makes our educational center stand out"
-          className="mb-12 md:mb-16"
+          className="mb-12 md:mb-16 text-center"
         />
-        <motion.div
-          className="  flex flex-col md:flex-row  gap-8 max-w-[80%] items-center  justify-center w-full mx-auto self-center"
-          variants={{
-            animate: { transition: { staggerChildren: 0.1 } },
-          }}
-          initial="initial"
-          animate="animate"
-        >
+        <div className="space-y-12 md:space-y-0 md:grid md:grid-cols-3 md:gap-8">
           {features.map((feature, index) => (
-            <motion.div key={index} {...fadeIn}>
-              <Card className="h-full">
-                <CardContent className="pt-6">
-                  <feature.icon className="h-12 w-12 text-primary mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
+            <div
+              key={index}
+              ref={(el) => (itemsRef.current[index] = el)}
+              className="flex flex-col items-center text-center"
+            >
+              <div className="mb-4 p-3 bg-primary/10 rounded-full">
+                <feature.icon className="h-8 w-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-gray-600 leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

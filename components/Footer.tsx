@@ -32,8 +32,8 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/courses" className="hover:text-primary">
-                  Courses
+                <Link href="/registration" className="hover:text-primary">
+                  Register
                 </Link>
               </li>
               <li>
@@ -52,22 +52,22 @@ function Footer() {
             <h3 className="text-white font-semibold text-lg mb-4">Programs</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/utme" className="hover:text-primary">
+                <Link href="" className="hover:text-primary">
                   UTME Preparation
                 </Link>
               </li>
               <li>
-                <Link href="/mathematics" className="hover:text-primary">
+                <Link href="" className="hover:text-primary">
                   Mathematics
                 </Link>
               </li>
               <li>
-                <Link href="/english" className="hover:text-primary">
+                <Link href="" className="hover:text-primary">
                   English
                 </Link>
               </li>
               <li>
-                <Link href="/sciences" className="hover:text-primary">
+                <Link href="" className="hover:text-primary">
                   Sciences
                 </Link>
               </li>

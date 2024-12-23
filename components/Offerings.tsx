@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SectionHeading } from "@/components/section-heading";
 import {
   GraduationCap,
@@ -11,6 +12,8 @@ import {
   CheckCircle2,
   Award,
 } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const offerings = [
   {
@@ -51,44 +54,83 @@ const offerings = [
 ];
 
 export function Offerings() {
-  const fadeIn = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
-  };
+  const sectionRef = useRef(null);
+  const itemsRef = useRef([]);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const items = itemsRef.current;
+
+    gsap.fromTo(
+      section,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+
+    items.forEach((item, index) => {
+      gsap.fromTo(
+        item,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: index * 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 90%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
 
   return (
-    <section className="py-20 md:py-32">
+    <section
+      ref={sectionRef}
+      className="py-20 md:py-32 bg-gradient-to-br from-gray-50 to-white"
+    >
       <div className="container px-4 md:px-6">
         <SectionHeading
           title="What We Offer"
           subtitle="Comprehensive educational services to help you succeed"
-          className="mb-12 md:mb-16"
+          className="mb-12 md:mb-16 text-center"
         />
-        <motion.div
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-          variants={{
-            animate: { transition: { staggerChildren: 0.1 } },
-          }}
-          initial="initial"
-          animate="animate"
-        >
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {offerings.map((offering, index) => (
-            <motion.div key={index} {...fadeIn}>
-              <Card className="h-full">
-                <CardHeader>
-                  <offering.icon className="h-8 w-8 text-primary mb-2" />
-                  <CardTitle>{offering.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    {offering.description}
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
+            <div
+              key={index}
+              ref={(el) => (itemsRef.current[index] = el)}
+              className="flex items-start space-x-4 p-4 rounded-lg transition-all duration-300 hover:bg-gray-50"
+            >
+              <div className="flex-shrink-0">
+                <offering.icon className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2">{offering.title}</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {offering.description}
+                </p>
+              </div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -109,13 +109,17 @@ export async function fetchTestimonials(): Promise<Testimonial[]> {
 }
 
 export async function createTestimonial(formData: FormData) {
-  console.log("Creating testimonial..."); // Debugging
+  console.log("Testimonial:", testimonialUrl);
+  console.log("Creating testimonial...", testimonialUrl);
   const testimonial = Object.fromEntries(formData);
+
   const res = await fetch(testimonialUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(testimonial),
   });
+
+  console.log("Response:", res);
 
   if (!res.ok) throw new Error("Failed to create testimonial");
   const data = await res.json();

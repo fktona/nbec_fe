@@ -1,9 +1,21 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Open_Sans, Roboto } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { Toaster } from "sonner";
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-roboto",
+});
+
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-open-sans",
+});
 
 export const metadata: Metadata = {
   title: "New Breed Educational Centre",
@@ -17,7 +29,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={`${inter.variable} ${roboto.variable} ${openSans.className} bg-gray-100`}
+      >
         <Toaster richColors />
         <main className="relative">{children}</main>
       </body>

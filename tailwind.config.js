@@ -18,6 +18,11 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        inter: ["var(--font-inter)"],
+        sans: ["var(--font-open-sans)"],
+        roboto: ["var(--font-roboto)"],
+      },
       colors: {
         primary: {
           DEFAULT: "#0047AB",

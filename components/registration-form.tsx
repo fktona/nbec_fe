@@ -253,6 +253,7 @@ export default function RegistrationForm() {
                           "Literature",
                           "Commerce",
                           "CRS",
+                          "IRS",
                           "Geography",
                           "Accounting",
                           "Agricultural Science",

@@ -12,7 +12,18 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { MapPin, Phone, Mail, Send, Clock, ExternalLink, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Send,
+  Clock,
+  ExternalLink,
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+} from "lucide-react";
 
 export default function ContactPage() {
   const [isHovered, setIsHovered] = useState("");
@@ -37,32 +48,52 @@ export default function ContactPage() {
   };
 
   const contactInfo = [
-    { icon: MapPin, title: "Visit Us", content: "No 9, Magistrate Court Rd, Igboora", action: "Get Directions" },
-    { icon: Phone, title: "Call Us", content: "+2349069561604", action: "Call Now" },
-    { icon: Mail, title: "Email Us", content: "newbreededucationalcentre@gmail.com", action: "Send Email" },
-    { icon: Clock, title: "Opening Hours", content: "Monday - Friday: 8am - 6pm", action: "View Schedule" },
+    {
+      icon: MapPin,
+      title: "Visit Us",
+      content: "Behind Methodist Grammar School, Sagan-un, Igboora, Oyo state.",
+      action: "Get Directions",
+    },
+    {
+      icon: Phone,
+      title: "Call Us",
+      content: "+2349069561604",
+      action: "Call Now",
+    },
+    {
+      icon: Mail,
+      title: "Email Us",
+      content: "newbreededucationalcentre@gmail.com",
+      action: "Send Email",
+    },
+    {
+      icon: Clock,
+      title: "Opening Hours",
+      content: "Monday - Friday: 8am - 6pm",
+      action: "View Schedule",
+    },
   ];
 
   const faqs = [
-    { 
-      q: "What programs do you offer?", 
-      a: "We offer comprehensive UTME preparation courses, one-on-one tutoring, and specialized subject classes. Our programs are designed to cater to various learning needs and academic goals."
+    {
+      q: "What programs do you offer?",
+      a: "We offer comprehensive UTME preparation courses, one-on-one tutoring, and specialized subject classes. Our programs are designed to cater to various learning needs and academic goals.",
     },
-    { 
-      q: "How long are your courses?", 
-      a: "Our course durations vary. UTME prep typically runs for 3-6 months, while individual tutoring can be scheduled as needed. We also offer intensive short-term courses and long-term comprehensive programs."
+    {
+      q: "How long are your courses?",
+      a: "Our course durations vary. UTME prep typically runs for 3-6 months, while individual tutoring can be scheduled as needed. We also offer intensive short-term courses and long-term comprehensive programs.",
     },
-    { 
-      q: "Do you offer online classes?", 
-      a: "Yes, we offer both in-person and online classes to accommodate different learning preferences and situations. Our online classes use interactive platforms to ensure an engaging learning experience."
+    {
+      q: "Do you offer online classes?",
+      a: "Yes, we offer both in-person and online classes to accommodate different learning preferences and situations. Our online classes use interactive platforms to ensure an engaging learning experience.",
     },
     {
       q: "What is your teaching methodology?",
-      a: "We employ a blend of traditional and modern teaching methods. This includes interactive lectures, practice tests, personalized feedback, and the use of technology to enhance learning. We focus on understanding concepts rather than mere memorization."
+      a: "We employ a blend of traditional and modern teaching methods. This includes interactive lectures, practice tests, personalized feedback, and the use of technology to enhance learning. We focus on understanding concepts rather than mere memorization.",
     },
     {
       q: "How do you track student progress?",
-      a: "We use a combination of regular assessments, mock exams, and one-on-one feedback sessions to track and communicate student progress. Parents and students receive detailed progress reports periodically."
+      a: "We use a combination of regular assessments, mock exams, and one-on-one feedback sessions to track and communicate student progress. Parents and students receive detailed progress reports periodically.",
     },
   ];
 
@@ -74,10 +105,12 @@ export default function ContactPage() {
     >
       <motion.div {...fadeInUp} className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-2">Contact Us</h1>
-        <p className="text-center text-muted-foreground mb-12">We're here to help and answer any question you might have.</p>
-        
+        <p className="text-center text-muted-foreground mb-12">
+          We're here to help and answer any question you might have.
+        </p>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          <motion.div 
+          <motion.div
             variants={staggerChildren}
             className="lg:col-span-2 space-y-8"
           >
@@ -87,21 +120,49 @@ export default function ContactPage() {
                 <form className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
+                        Your Name
+                      </label>
                       <Input id="name" placeholder="John Doe" />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
-                      <Input id="email" type="email" placeholder="john@example.com" />
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
+                        Your Email
+                      </label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="john@example.com"
+                      />
                     </div>
                   </div>
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                    <label
+                      htmlFor="subject"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Subject
+                    </label>
                     <Input id="subject" placeholder="How can we help you?" />
                   </div>
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
-                    <Textarea id="message" placeholder="Tell us more about your inquiry..." rows={4} />
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Your Message
+                    </label>
+                    <Textarea
+                      id="message"
+                      placeholder="Tell us more about your inquiry..."
+                      rows={4}
+                    />
                   </div>
                   <Button type="submit" className="w-full">
                     Send Message
@@ -112,7 +173,9 @@ export default function ContactPage() {
             </Card>
             <Card>
               <CardContent className="p-6">
-                <h2 className="text-2xl font-semibold mb-4">Frequently Asked Questions</h2>
+                <h2 className="text-2xl font-semibold mb-4">
+                  Frequently Asked Questions
+                </h2>
                 <Accordion type="single" collapsible className="w-full">
                   {faqs.map((faq, index) => (
                     <AccordionItem key={index} value={`item-${index}`}>
@@ -156,16 +219,19 @@ export default function ContactPage() {
             ))}
           </motion.div>
         </div>
-        
+
         <motion.div {...fadeInUp} className="text-center">
           <h2 className="text-2xl font-semibold mb-4">Connect With Us</h2>
-          <p className="text-muted-foreground mb-6">Follow us on social media for updates, tips, and educational content.</p>
+          <p className="text-muted-foreground mb-6">
+            Follow us on social media for updates, tips, and educational
+            content.
+          </p>
           <div className="flex justify-center space-x-4">
             {[
-              { name: 'Facebook', icon: Facebook },
-              { name: 'Twitter', icon: Twitter },
-              { name: 'Instagram', icon: Instagram },
-              { name: 'LinkedIn', icon: Linkedin }
+              { name: "Facebook", icon: Facebook },
+              { name: "Twitter", icon: Twitter },
+              { name: "Instagram", icon: Instagram },
+              { name: "LinkedIn", icon: Linkedin },
             ].map((social, index) => (
               <Button key={index} variant="outline" size="icon">
                 <span className="sr-only">{social.name}</span>
@@ -178,4 +244,3 @@ export default function ContactPage() {
     </motion.div>
   );
 }
-

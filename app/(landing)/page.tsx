@@ -523,11 +523,11 @@ export default async function Home() {
 
   console.log("gooopsaihsa", initialBlogs);
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-primary/10">
       <Hero />
       <Features />
       <Offerings />
-      {/* <SuccessStories /> */}
+      <SuccessStories />
       <Blog initialBlogs={initialBlogs} />
       <Testimonials initialTestimonials={testimonials} />
       <CallToAction />

@@ -17,6 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import Image from "next/image";
 
 const courses = [
   { title: "UTME Preparation", href: "/courses/utme" },
@@ -41,14 +42,21 @@ export function NavBar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
-        <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="hidden font-bold sm:inline-block">
-              New Breed Educational Centre
-            </span>
-          </Link>
+    <header className="sticky top-0 z-50 w-full border-b  backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 items-center  justify-between">
+        <Link href="/" className="mr-6 flex items-center  space-x-2">
+          <Image
+            src="/logo.jpg"
+            alt="New Breed Educational Centre"
+            width={40}
+            height={40}
+            className=" rounded-full"
+          />
+          <span className="hidden font-bold lg:inline-block">
+            New Breed Educational Centre
+          </span>
+        </Link>
+        <div className="mr-4 hidden md:flex ">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -149,30 +157,37 @@ export function NavBar() {
                 <MobileLink href="/" onOpenChange={setIsOpen}>
                   Home
                 </MobileLink>
-                <MobileLink href="/courses" onOpenChange={setIsOpen}>
-                  Courses
-                </MobileLink>
-                <MobileLink href="/resources" onOpenChange={setIsOpen}>
-                  Resources
-                </MobileLink>
                 <MobileLink href="/about" onOpenChange={setIsOpen}>
                   About
+                </MobileLink>
+                <MobileLink href="/blog" onOpenChange={setIsOpen}>
+                  Blogs
                 </MobileLink>
                 <MobileLink href="/contact" onOpenChange={setIsOpen}>
                   Contact
                 </MobileLink>
               </div>
             </div>
+            <div className="flex absolute items-center md:hidden  space-x-2 ">
+              <div className="w-full flex-1 md:w-auto md:flex-none">
+                <Button className="w-full md:w-auto" asChild>
+                  <Link href="/student/login">Student Login</Link>
+                </Button>
+              </div>
+              <Button variant="outline" className="w-full md:w-auto" asChild>
+                <Link href="/register">Register</Link>
+              </Button>
+            </div>
           </SheetContent>
         </Sheet>
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+        <div className="md:flex hidden  items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
             <Button className="w-full md:w-auto" asChild>
               <Link href="/student/login">Student Login</Link>
             </Button>
           </div>
           <Button variant="outline" className="w-full md:w-auto" asChild>
-            <Link href="/register">Register</Link>
+            <Link href="/registration">Register</Link>
           </Button>
         </div>
       </div>
@@ -227,7 +242,7 @@ function MobileLink({
         onOpenChange?.(false);
       }}
       className={cn(
-        "text-foreground/70 transition-colors hover:text-foreground",
+        "text-foreground/70 font-bold text-lg gap-4 transition-colors hover:text-foreground",
         pathname === href && "text-foreground",
         className
       )}

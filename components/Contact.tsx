@@ -57,7 +57,7 @@ export function Contact() {
               <div>
                 <h3 className="font-semibold">Address</h3>
                 <p className="text-muted-foreground">
-                  No 9, Magistrate Court Rd, Igboora
+                  Behind Methodist Grammar School, Sagan-un, Igboora, Oyo state.
                 </p>
               </div>
             </div>
