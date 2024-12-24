@@ -1,10 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  createTestimonial,
-  createTestimonialExternal,
-} from "@/actions/actions";
+import { createTestimonial } from "@/actions/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -34,12 +31,12 @@ export default function ClientTestimonialForm() {
     setIsSubmitting(true);
     const formData = new FormData(event.currentTarget);
     try {
-      const res = await createTestimonialExternal(formData);
-      console.log("Testimonial:", res);
+      await createTestimonial(formData);
       setFeedbackModal({
         isOpen: true,
         isError: false,
-        message: "Your testimonial has been submitted successfully.",
+        message:
+          "Your testimonial has been submitted successfully. Thank you for your feedback!",
       });
     } catch (error) {
       setFeedbackModal({
@@ -59,13 +56,22 @@ export default function ClientTestimonialForm() {
 
   return (
     <div className="max-w-md mx-auto">
+      <div className="text-center mb-6">
+        <h2 className="text-3xl font-bold text-blue-600">
+          Share Your Success Story!
+        </h2>
+        <p className="text-lg text-gray-600 mt-2">
+          Your journey inspires others. Let your experience light the way for
+          future learners!
+        </p>
+      </div>
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded-lg p-6"
       >
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-          Submit Your Testimonial
-        </h2>
+        <h3 className="text-2xl font-semibold text-gray-800 mb-6">
+          Newbre Educational Centre Testimonial
+        </h3>
         <div className="space-y-4">
           <div>
             <Label htmlFor="firstName">First Name</Label>
@@ -77,20 +83,36 @@ export default function ClientTestimonialForm() {
           </div>
           <div>
             <Label htmlFor="role">Role</Label>
-            <Input type="text" id="role" name="role" required />
+            <Input
+              type="text"
+              id="role"
+              name="role"
+              placeholder="e.g., Student, Parent, Professional"
+              required
+            />
           </div>
           <div>
             <Label htmlFor="company">Company/Institution</Label>
-            <Input type="text" id="company" name="company" required />
+            <Input type="text" id="company" name="company" />
           </div>
           <div>
             <Label htmlFor="content">Your Testimonial</Label>
-            <Textarea id="content" name="content" rows={4} required />
+            <Textarea
+              id="content"
+              name="content"
+              rows={4}
+              placeholder="Share how Newbre Educational Centre has impacted your learning journey..."
+              required
+            />
           </div>
         </div>
         <div className="mt-6">
-          <Button type="submit" disabled={isSubmitting} className="w-full">
-            {isSubmitting ? "Submitting..." : "Submit Testimonial"}
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-blue-600 hover:bg-blue-700"
+          >
+            {isSubmitting ? "Submitting..." : "Submit Your Story"}
           </Button>
         </div>
       </form>
@@ -99,7 +121,7 @@ export default function ClientTestimonialForm() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {feedbackModal.isError ? "Error" : "Success"}
+              {feedbackModal.isError ? "Error" : "Thank You!"}
             </DialogTitle>
             <DialogDescription>{feedbackModal.message}</DialogDescription>
           </DialogHeader>
