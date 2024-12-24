@@ -26,7 +26,7 @@ export function middleware(request: NextRequest) {
   // Handle authentication for admin routes
   if (isAdminSubdomain) {
     const rootDomain = process.env.NEXT_PUBLIC_ROOT_DOMAIN || "";
-    const adminHostname = `admin.${rootDomain}`;
+    const adminHostname = `admin`;
 
     // Rewrite all requests for the admin subdomain
     if (host.startsWith(adminHostname)) {
