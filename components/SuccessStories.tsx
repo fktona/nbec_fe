@@ -6,19 +6,25 @@ import { SectionHeading } from "@/components/section-heading";
 
 const successStories = [
   {
-    name: "Chidi Okonkwo",
+    name: "Obisesan Oluwanifemi Speed",
+    course: "Medicine and surgery",
     score: 320,
-    university: "University of Lagos",
+    university: "Ila-Orangun University",
+    type: "UTME",
   },
   {
-    name: "Fatima Bello",
-    score: 315,
-    university: "Ahmadu Bello University",
+    name: "Aleji Josephine",
+    course: "Medicine and surgery ",
+    score: 284,
+    university: "University of Uyo",
+    type: "UTME",
   },
   {
-    name: "Oluwaseun Adeleke",
-    score: 330,
+    name: "Adejumo Silas",
+    course: "Petroleum Engineering",
+    score: 73,
     university: "University of Ibadan",
+    type: "Post-UTME",
   },
 ];
 
@@ -59,8 +65,13 @@ export function SuccessStories() {
                   <h3 className="text-xl font-semibold text-center mb-2">
                     {story.name}
                   </h3>
+
+                  <p className="text-center font-semibold">
+                    Course: {story.course}
+                  </p>
                   <p className="text-center text-muted-foreground mb-2">
-                    UTME Score: {story.score}
+                    {story.type == "UTME" ? "UTME" : "POST UTME"} SCORE:{" "}
+                    {story.score}
                   </p>
                   <p className="text-center text-primary font-semibold">
                     Admitted to {story.university}

@@ -19,7 +19,7 @@ const tutorialServices: ServiceCard[] = [
     title: "O LEVEL",
     tag: "o-level",
     subtitle: "Registration fee ₦1,000",
-    price: 10000,
+    price: 4000,
     features: [
       "Intensive Coaching",
       "Pleasant Learning Experience",

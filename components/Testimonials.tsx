@@ -96,9 +96,9 @@ export function Testimonials({ initialTestimonials }: TestimonialsClientProps) {
         )}
 
         <div className="text-center mt-12">
-          <Button size="lg" variant="outline" asChild>
+          {/* <Button size="lg" variant="outline" asChild>
             <Link href="/testimonials">View All Testimonials</Link>
-          </Button>
+          </Button> */}
         </div>
       </div>
     </section>

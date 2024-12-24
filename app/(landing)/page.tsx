@@ -517,6 +517,9 @@ import { fetchTestimonials, getBlogs } from "../../actions/actions";
 
 export default async function Home() {
   const testimonials = await fetchTestimonials();
+  const approvedTestimonials = testimonials.filter(
+    (testimonial) => testimonial.isApproved === true
+  );
   const initialBlogs = await getBlogs({
     limit: 3,
   });
@@ -529,7 +532,7 @@ export default async function Home() {
       <Offerings />
       <SuccessStories />
       <Blog initialBlogs={initialBlogs} />
-      <Testimonials initialTestimonials={testimonials} />
+      <Testimonials initialTestimonials={approvedTestimonials} />
       <CallToAction />
       <Contact />
     </div>

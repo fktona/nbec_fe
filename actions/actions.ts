@@ -92,7 +92,11 @@ export interface Testimonial {
   role: string;
   content: string;
   company: string;
-  picture?: string;
+  isExternal: boolean;
+  isApproved: boolean;
+  profileImage?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const testimonialUrl = `${config.API_URL}/testimonials`;
@@ -118,13 +122,55 @@ export async function createTestimonial(formData: FormData) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(testimonial),
   });
+}
 
-  console.log("Response:", res);
+export async function createTestimonialExternal(formData: FormData) {
+  try {
+    console.log("Creating external testimonial...");
 
-  if (!res.ok) throw new Error("Failed to create testimonial");
+    // Convert FormData to a plain object
+    const testimonial = Object.fromEntries(formData);
+    console.log("Testimonial data:", testimonial);
+
+    // Make POST request
+    const res = await fetch(`${testimonialUrl}/external`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(testimonial),
+    });
+
+    console.log("Response status:", res.status);
+
+    // Handle non-OK responses
+    if (!res.ok) {
+      const errorText = await res.text(); // Capture error details from response
+      console.error("Error response:", errorText);
+      throw new Error(`Failed to create testimonial. Status: ${res.status}`);
+    }
+
+    // Parse response data
+    const data = await res.json();
+    console.log("Testimonial created successfully:", data);
+
+    // Revalidate cache or data
+    revalidateTag("testimonials");
+
+    // Return the created testimonial data
+    return data.data;
+  } catch (error) {
+    console.error("Error creating testimonial:", error);
+    throw error; // Rethrow to handle it upstream if needed
+  }
+}
+
+export async function approveTestimonial(id: string) {
+  const res = await fetch(`${testimonialUrl}/${id}/approve`, {
+    method: "PATCH",
+  });
+  if (!res.ok) throw new Error("Failed to approve testimonial");
   const data = await res.json();
 
-  console.log("Testimonial created:", data);
+  console.log("Testimonial approved:", data);
 
   revalidateTag("testimonials");
   return data.data;

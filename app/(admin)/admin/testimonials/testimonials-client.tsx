@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Edit, Plus, Trash2 } from "lucide-react";
+import { Check, Edit, Plus, Trash2 } from "lucide-react";
 import {
   Testimonial,
+  approveTestimonial,
   createTestimonial,
   deleteTestimonial,
   updateTestimonial,
@@ -20,6 +21,15 @@ export default function TestimonialsClient({
   const [editingTestimonial, setEditingTestimonial] =
     useState<Testimonial | null>(null);
   const [showEditor, setShowEditor] = useState(false);
+
+  const handleApprove = async (id: string) => {
+    const updatedTestimonial = await approveTestimonial(id);
+    setTestimonials(
+      testimonials.map((t) =>
+        t.id === updatedTestimonial.id ? updatedTestimonial : t
+      )
+    );
+  };
 
   const handleEdit = (testimonial: Testimonial) => {
     setEditingTestimonial(testimonial);
@@ -195,6 +205,15 @@ export default function TestimonialsClient({
               className="bg-white shadow-lg rounded-lg overflow-hidden"
             >
               <div className="p-6">
+                {testimonial.isApproved ? (
+                  <div className="bg-green-100 w-fit flex text-green-800 px-2 py-1 rounded-full text-xs">
+                    Approved <Check className="h-4 w-4" />
+                  </div>
+                ) : (
+                  <div className="w-fit bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">
+                    Pending Approval
+                  </div>
+                )}
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800">
@@ -217,6 +236,14 @@ export default function TestimonialsClient({
                     >
                       <Trash2 className="h-5 w-5" />
                     </button>
+                    {!testimonial.isApproved && (
+                      <button
+                        className="text-yellow-600 hover:text-yellow-800"
+                        onClick={() => handleApprove(testimonial.id)}
+                      >
+                        <Check className="h-4 w-4" />
+                      </button>
+                    )}
                   </div>
                 </div>
                 <p className="text-gray-700">{testimonial.content}</p>

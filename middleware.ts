@@ -1,49 +1,89 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+const ADMIN_SUBDOMAIN = "admin";
+const TESTIMONIAL_SUBDOMAIN = "testimonial";
+
+function getSubdomain(host: string): string {
+  return host.split(".")[0];
+}
+
+function removePrefix(path: string, prefix: string): string {
+  return path.replace(new RegExp(`^${prefix}`), "");
+}
+
+function constructUrl(
+  protocol: string,
+  host: string,
+  path: string,
+  searchParams: string
+): string {
+  const baseUrl = `${protocol}//${host}${path}`;
+  return searchParams ? `${baseUrl}?${searchParams}` : baseUrl;
+}
+
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value || "";
-  const host = request.headers.get("host") || "";
-  const isAdminSubdomain = host.startsWith("admin.");
-  const isAdminRoute = request.nextUrl.pathname.startsWith("/admin");
-  const isLoginRoute = request.nextUrl.pathname === "/login";
+  const token = request.cookies.get("token")?.value ?? "";
+  const host = request.headers.get("host") ?? "";
+  const subdomain = getSubdomain(host);
+  const { pathname, searchParams } = request.nextUrl;
+  const isAdminRoute = pathname.startsWith("/admin");
+  const isTestimonialRoute = pathname.startsWith("/testimonial");
+  const isLoginRoute = pathname === "/login";
 
-  const searchParams = request.nextUrl.searchParams.toString();
-  const pathWithoutAdmin = request.nextUrl.pathname.replace(/^\/admin/, "");
-  const path = `${pathWithoutAdmin}${searchParams ? `?${searchParams}` : ""}`;
+  const headers = new Headers(request.headers);
 
-  // Redirect non-admin subdomain `/admin` routes to the admin subdomain
-  if (!isAdminSubdomain && isAdminRoute) {
-    const adminHost = `admin.${host.replace("www.", "")}`;
-    return NextResponse.redirect(
-      new URL(
-        `${request.nextUrl.protocol}//${adminHost}${path === "/" ? "/" : path}`,
-        request.url
-      )
+  // Handle subdomain routing
+  if (subdomain !== ADMIN_SUBDOMAIN && subdomain !== TESTIMONIAL_SUBDOMAIN) {
+    if (isAdminRoute) {
+      return redirectToSubdomain(
+        request,
+        ADMIN_SUBDOMAIN,
+        removePrefix(pathname, "/admin")
+      );
+    }
+    if (isTestimonialRoute) {
+      return redirectToSubdomain(
+        request,
+        TESTIMONIAL_SUBDOMAIN,
+        removePrefix(pathname, "/testimonial")
+      );
+    }
+  }
+
+  // Handle admin subdomain
+  if (subdomain === ADMIN_SUBDOMAIN) {
+    if (isLoginRoute && token) {
+      const callbackUrl = searchParams.get("callbackUrl") ?? "/admin";
+      return NextResponse.redirect(new URL(callbackUrl, request.url));
+    }
+    return NextResponse.rewrite(new URL(`/admin${pathname}`, request.url));
+  }
+
+  // Handle testimonial subdomain
+  if (subdomain === TESTIMONIAL_SUBDOMAIN) {
+    return NextResponse.rewrite(
+      new URL(`/testimonial${pathname}`, request.url)
     );
   }
 
-  // Handle authentication for admin routes
-  if (isAdminSubdomain) {
-    const rootDomain = process.env.NEXT_PUBLIC_ROOT_DOMAIN || "";
-    const adminHostname = `admin`;
+  return NextResponse.next({ headers });
+}
 
-    // Rewrite all requests for the admin subdomain
-    if (host.startsWith(adminHostname)) {
-      return NextResponse.rewrite(
-        new URL(`/admin${path === "/" ? "/" : path}`, request.url)
-      );
-    }
-
-    // Redirect authenticated users on the login route to the admin panel
-    if (isLoginRoute && token) {
-      const callbackUrl =
-        request.nextUrl.searchParams.get("callbackUrl") || "/admin";
-      return NextResponse.redirect(new URL(callbackUrl, request.url));
-    }
-  }
-
-  return NextResponse.next();
+function redirectToSubdomain(
+  request: NextRequest,
+  subdomain: string,
+  path: string
+): NextResponse {
+  const host = request.headers.get("host") ?? "";
+  const newHost = `${subdomain}.${host.replace(/^www\./, "")}`;
+  const url = constructUrl(
+    request.nextUrl.protocol,
+    newHost,
+    path,
+    request.nextUrl.searchParams.toString()
+  );
+  return NextResponse.redirect(new URL(url));
 }
 
 export const config = {
