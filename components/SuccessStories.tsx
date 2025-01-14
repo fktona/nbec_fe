@@ -59,7 +59,7 @@ export function SuccessStories() {
               <Card className="h-full">
                 <CardContent className="pt-6">
                   <Image
-                    src="/placeholder.svg"
+                    src={story.src}
                     alt={story.name}
                     width={100}
                     height={100}
