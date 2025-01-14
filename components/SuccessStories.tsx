@@ -11,6 +11,7 @@ const successStories = [
     score: 320,
     university: "Ila-Orangun University",
     type: "UTME",
+    src: "/placeholder.svg",
   },
   {
     name: "Aleji Josephine",
@@ -18,6 +19,7 @@ const successStories = [
     score: 284,
     university: "University of Uyo",
     type: "UTME",
+    src: "/josephine.jpg",
   },
   {
     name: "Adejumo Silas",
@@ -25,6 +27,7 @@ const successStories = [
     score: 73,
     university: "University of Ibadan",
     type: "Post-UTME",
+    src: "/silas.jpg",
   },
 ];
 
